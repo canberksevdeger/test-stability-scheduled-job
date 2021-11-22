@@ -9,6 +9,7 @@ sched = BlockingScheduler()
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=9)
 def scheduled_job():
     """
+    ### This Comment for demo purpose ###
     For changing job's cycle please change parameters
     :param day_of_week: Used for selecting work days
     :type arg: str
