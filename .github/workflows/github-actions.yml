@@ -13,7 +13,7 @@ jobs:
         run: echo "::set-output name=lint_report::$(pylint job.py)"
       - uses: mshick/add-pr-comment@v1
         with:
-          message: ${{join(steps.pylint.outputs.*, '\n')}}
+          message: ${{ steps.pylint.outputs.lint_report }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
