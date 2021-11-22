@@ -1,0 +1,2 @@
+APScheduler==3.8.1
+urllib3==1.26.2
