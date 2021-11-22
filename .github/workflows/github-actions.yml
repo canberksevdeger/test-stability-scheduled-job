@@ -7,6 +7,6 @@ jobs:
       - name: "Clone Repo"
         uses: actions/checkout@v2
       - name: "Install dependencies"
-        run: pip3 install -r requirements.txt
+        run: pip3 install -r requirements.txt ; pip3 install pylint
       - name: "Run Pylint"
         run: pylint job.py
