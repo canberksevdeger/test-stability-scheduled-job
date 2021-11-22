@@ -11,13 +11,12 @@ jobs:
       - name: "Run Pylint"
         id: pylint
         run: |
-          $output=(pylint job.py)
-          echo "::set-output name=lint_report::$output"
+          echo "PYLINT_REPORT=$(pylint job.py)" >> $GITHUB_ENV
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
             Pylint report
-            ${{ steps.pylint.outputs.lint_report }}
+            ${{ env.PYLINT_REPORT }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
