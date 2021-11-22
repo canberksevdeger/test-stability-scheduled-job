@@ -10,12 +10,17 @@ jobs:
         run: pip3 install -r requirements.txt ; pip3 install pylint
       - name: "Run Pylint"
         id: pylint
-        run: |
-          echo $(pylint job.py)
-          echo "::set-output name=pylint_report::$(pylint job.py)"
-      - uses: peter-evans/commit-comment@v1
+        uses: actions/upload-artifact@v1
         with:
-          body: |
-            Pylint report
-            ${{steps.pylint.outputs.pylint_report}}
-            
+          name: lint_results
+          path: output
+        run: |
+          echo $(pylint job.py) > output/lint_results.txt
+      - uses: actions/download-artifact@v1
+        with:
+          name: lint_results
+      - uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: results/lint_results.txt
