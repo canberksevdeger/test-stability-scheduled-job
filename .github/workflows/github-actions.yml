@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Clone Repo"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: "Install dependencies"
         run: pip3 install -r requirements.txt
       - name: "Run Pylint"
@@ -13,3 +13,14 @@ jobs:
         with:
           python-root-list: "job.py"
           use-pylint: true
+          use-pycodestyle: false
+          use-flake8: false
+          use-black: false
+          use-mypy: false
+          use-isort: false
+          extra-pylint-options: ""
+          extra-pycodestyle-options: ""
+          extra-flake8-options: ""
+          extra-black-options: ""
+          extra-mypy-options: ""
+          extra-isort-options: ""
