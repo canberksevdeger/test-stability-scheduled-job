@@ -10,10 +10,10 @@ jobs:
         run: pip3 install -r requirements.txt ; pip3 install pylint
       - name: "Run Pylint"
         id: pylint
-        run: echo "::set-output name=lint_report::pylint job.py"
+        run: echo "::set-output name=lint_report::$(pylint job.py)"
       - uses: mshick/add-pr-comment@v1
         with:
-          message: 
+          message: ${{join(steps.pylint.outputs.*, '\n')}}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
