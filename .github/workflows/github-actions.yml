@@ -9,13 +9,13 @@ jobs:
       - name: "Install dependencies"
         run: pip3 install -r requirements.txt ; pip3 install pylint
       - name: "Run Pylint"
+        run: |
+          echo $(pylint job.py) > output/lint_results.txt
         id: pylint
-        uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v1
         with:
           name: lint_results
           path: output
-        run: |
-          echo $(pylint job.py) > output/lint_results.txt
       - uses: actions/download-artifact@v1
         with:
           name: lint_results
