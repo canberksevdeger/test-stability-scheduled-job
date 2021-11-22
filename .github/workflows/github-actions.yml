@@ -1,17 +1,26 @@
-name: GitHub Actions
+name: "Python Code Quality and Lint"
 on: [pull_request]
 jobs:
-  Explore-GitHub-Actions:
+  PyLint:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      - name: "Clone Repo"
         uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: "Install dependencies"
+        run: pip3 install -r requirements.txt ; pip3 install pylint
+      - name: "Run Pylint"
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          echo $(pylint job.py) > lint_results.txt
+        id: pylint
+      - uses: actions/upload-artifact@v1
+        with:
+          path: ./
+          name: lint_results
+      - uses: actions/download-artifact@v1
+        with:
+          name: lint_results
+      - uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: ./lint_results.txt
