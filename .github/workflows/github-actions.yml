@@ -10,7 +10,7 @@ jobs:
         run: pip3 install -r requirements.txt ; pip3 install pylint
       - name: "Run Pylint"
         id: pylint
-        run: echo "::set-output name=lint_report::$(STRINGHERE)"
+        run: echo "::set-output name=lint_report::$(pylint job.py)"
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
