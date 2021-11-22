@@ -11,15 +11,16 @@ jobs:
       - name: "Run Pylint"
         id: pylint
         run: |
-        delta=$(pylint job.py)
-        echo "::set-output name=lint_report::$delta"
-
+          delta=$(pylint job.py)
+          echo "::set-output name=lint_report::$delta"
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
-            ${{ steps.pylint.outputs.lint_report }}
-            🌏
-            !
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
+            ```
+              ${{ steps.pylint.outputs.lint_report }}
+              🌏
+              !
+            ```
+            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+            allow-repeats: false # This is the default
