@@ -14,6 +14,7 @@ jobs:
         id: pylint
       - uses: actions/upload-artifact@v1
         with:
+          path: ./
           name: lint_results
       - uses: actions/download-artifact@v1
         with:
@@ -22,4 +23,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: lint_results.txt
+          path: ./lint_results.txt
