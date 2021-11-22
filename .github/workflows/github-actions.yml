@@ -11,6 +11,7 @@ jobs:
       - name: "Run Pylint"
         id: pylint
         run: |
+          echo $(pylint job.py)
           echo "::set-output name=pylint_report::$(pylint job.py)"
       - uses: mshick/add-pr-comment@v1
         with:
