@@ -13,11 +13,9 @@ jobs:
         run: |
           echo $(pylint job.py)
           echo "::set-output name=pylint_report::$(pylint job.py)"
-      - uses: mshick/add-pr-comment@v1
+      - uses: peter-evans/commit-comment@v1
         with:
-          message: |
+          body: |
             Pylint report
             ${{steps.pylint.outputs.pylint_report}}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
+            
